@@ -1,25 +1,52 @@
 import React from 'react'
 import { Form, Button, ButtonToolbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { AppContext } from '../../context/AppContext'
 
 class Login extends React.Component {
 
+    static contextType = AppContext
+    state = {
+        username: "",
+        password: ""
+    }
+
     onLoginButtonClicked = e => {
-        console.log("Login to user account")
+        const { Api } = this.context
+        const { username, password } = this.state
+        Api.getBearerToken(username, password)
     }
 
     onCreateButtonClicked = e => {
-        console.log("Creating user account")
+        const { 
+            getUsers
+        } = this.context.Api
+
+        getUsers ();
+    }
+
+    handleChange = event => {
+        const { name, value } = event.target
+        this.setState({
+            [name]: value
+        });
     }
 
     render () {
+        const { username, password } = this.state
+
         return (
             <div>
                 <h1>Login to our site</h1>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            name="username"
+                            value={username}
+                            onChange={ this.handleChange } />
                         <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
                         </Form.Text>
@@ -27,7 +54,7 @@ class Login extends React.Component {
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" placeholder="Password" name="password" value={password} onChange={ this.handleChange } />
                     </Form.Group>
                     {/* <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Check me out" />
@@ -45,6 +72,11 @@ class Login extends React.Component {
                         <small>
                             You don't have an account yet?, <Link to="/register">create</Link> a new account
                         </small>
+                    </div>
+                    <div>
+                        Prop1: { this.context.property1 }
+                        <br></br>
+                        Prop2: { this.context.property2 }
                     </div>
                 </Form>
             </div>
