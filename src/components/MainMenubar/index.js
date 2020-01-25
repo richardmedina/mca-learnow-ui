@@ -1,14 +1,23 @@
 import React from 'react'
-import 
-    { Navbar, Nav, NavDropdown }
+import { 
+    Navbar,
+    Nav,
+    NavDropdown 
+}
 from 'react-bootstrap'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import styles from './styles.css'
+import { connect } from 'react-redux'
 
 class MainMenubar extends React.Component {
     render ()
     {
-        return (
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        const { isLogged } = this.props
+
+        console.log ("PROPS: ", this.props)
+
+        return isLogged ? (
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className={styles["main-menu-bar"]}>
                 <Navbar.Brand as={Link} to="/">React-Bootstrap</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -29,8 +38,16 @@ class MainMenubar extends React.Component {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-        )
+        ):
+        <React.Fragment />
     }
 }
 
-export default MainMenubar
+const mapStateToProps = state =>{
+    console.log ("Asigning state: ", state)
+    return {
+        isLogged: state.login.isLogged
+    }
+}
+
+export default connect(mapStateToProps, null) (MainMenubar)

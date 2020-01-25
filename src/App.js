@@ -3,27 +3,22 @@ import logo from './logo.svg';
 import './App.css';
 
 import MainMenubar from './components/MainMenubar'
-import { BrowserRouter, Route } from 'react-router-dom';
-import Login from './components/Login';
-import {
-  AppContextProvider,
-  AppContext
-} from './context';
+import { BrowserRouter } from 'react-router-dom';
+import store from './store'
 
-import Api from './libs/Api'
+import { Provider } from 'react-redux'
+import View from './components/View';
 
 function App() {
   return (
-    <AppContextProvider>
+    <Provider store={ store }>
       <BrowserRouter>
-          <MainMenubar />
-          <div className="container">
-            <Route exact path="/" render={ () => <div>Main Page</div> } />
-            <Route exact path="/login" component={Login} />
-            <Route path="/about" render={ () => <div>About</div> } />
-          </div>
+        <MainMenubar />
+        <div className="container">
+          <View />
+        </div>
       </BrowserRouter>
-    </AppContextProvider>
+    </Provider>
   );
 }
 

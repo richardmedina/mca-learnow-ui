@@ -1,7 +1,11 @@
 import React from 'react'
 import { Form, Button, ButtonToolbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { AppContext } from '../../context/AppContext'
+import { AppContext } from '../../../context/AppContext'
+
+import Logo from '../../common/logo'
+
+import styles from './styles.module.css'
 
 class Login extends React.Component {
 
@@ -12,9 +16,7 @@ class Login extends React.Component {
     }
 
     onLoginButtonClicked = e => {
-        const { Api } = this.context
         const { username, password } = this.state
-        Api.getBearerToken(username, password)
     }
 
     onCreateButtonClicked = e => {
@@ -36,8 +38,9 @@ class Login extends React.Component {
         const { username, password } = this.state
 
         return (
-            <div>
+            <div className={ styles.login }>
                 <h1>Login to our site</h1>
+                <Logo size="small" />
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
