@@ -9,7 +9,17 @@ import { Link } from 'react-router-dom'
 import styles from './styles.css'
 import { connect } from 'react-redux'
 
+import { logout } from '../../store/actions'
+
 class MainMenubar extends React.Component {
+
+    onLogoutClick = e => {
+        console.log("Logout click")
+        const { logout } = this.props
+        logout()
+        e.preventDefault()
+    }
+
     render ()
     {
         const { isLogged } = this.props
@@ -32,7 +42,7 @@ class MainMenubar extends React.Component {
                     </Nav>
                     <Nav>
                         <Nav.Link href="#deets">More deets</Nav.Link>
-                        <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
+                        <Nav.Link onClick={ this.onLogoutClick }>Logout</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -47,4 +57,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null) (MainMenubar)
+const mapDispatchToProps = dispatch => {
+    return {
+        logout: () => dispatch(logout())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (MainMenubar)

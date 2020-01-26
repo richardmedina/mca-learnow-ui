@@ -1,3 +1,4 @@
-export const LOGIN_SUCCEED = "LOGIN_SUCCEED"
-export const LOGIN_FAILED = "LOGIN_FAILED"
+export const APP_LOGIN_SUCCEED = "LOGIN_SUCCEED"
+export const APP_LOGIN_FAILED = "LOGIN_FAILED"
+export const APP_LOGOUT = "APP_LOGOUT"
 

@@ -2,12 +2,12 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import MainMenubar from './components/MainMenubar'
+import MainMenubar from './components/mainMenubar'
 import { BrowserRouter, withRouter } from 'react-router-dom';
 import store from './store'
 
 import { Provider } from 'react-redux'
-import View from './components/View';
+import View from './components/view';
 
 import api from './libs/LearnowApi'
 

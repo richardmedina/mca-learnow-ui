@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import Login from '../Views/Login'
+import Login from '../views/login'
 
 import { connect } from 'react-redux'
 

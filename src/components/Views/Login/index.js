@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Button, ButtonToolbar } from 'react-bootstrap'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { AppContext } from '../../../context/AppContext'
 
 import { connect } from 'react-redux'
@@ -20,8 +20,8 @@ class Login extends React.Component {
 
     onLoginButtonClicked = e => {
         const { username, password } = this.state
-        const { doLogin } = this.props
-        doLogin(username, password)
+        const { authenticate } = this.props
+        authenticate(username, password)
     }
 
     onCreateButtonClicked = e => {
@@ -39,12 +39,12 @@ class Login extends React.Component {
         });
     }
 
-    componentDidMount ()
-    {
-        const { isLogged, history } = this.props
-        console.log("Redirectiong to root")
-        //if (isLogged) history.push("/")
-    }
+    // componentDidMount ()
+    // {
+    //     const { isLogged, history } = this.props
+    //     console.log("Redirectiong to root")
+    //     //if (isLogged) history.push("/")
+    // }
 
     render () {
         const { username, password } = this.state
@@ -103,9 +103,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        doLogin: (username, password) =>
+        authenticate: (username, password) =>
             dispatch(authenticate(username, password))
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

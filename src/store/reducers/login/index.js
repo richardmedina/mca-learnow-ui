@@ -1,4 +1,7 @@
-import { LOGIN_SUCCEED } from '../../actions/actionTypes'
+import {
+    APP_LOGIN_SUCCEED,
+    APP_LOGOUT
+} from '../../actions/actionTypes'
 
 
 const initialState = {
@@ -9,11 +12,17 @@ const initialState = {
 export default (state = initialState, action) => {
     switch(action.type)
     {
-        case LOGIN_SUCCEED:
+        case APP_LOGIN_SUCCEED:
             return {
-                state,
-                isLogged: true,
-                auth: action.payload
+                ...state,
+                    isLogged: true,
+                    auth: action.payload
+            }
+        case APP_LOGOUT:
+            return {
+                ...state,
+                    isLogged: false,
+                    auth: null
             }
     }
 
