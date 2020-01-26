@@ -1,0 +1,23 @@
+
+.main {
+    background: #E5FFCC;
+    height: 100vh;
+}
+
+
+.main-bar {
+    /* border: dashed 1px #ddd; */
+}
+
+.left-bar {
+    /* border: dashed 1px  #ddd; */
+    display: inline-block;
+    width: 70%;
+}
+
+.right-bar {
+    /* border: dashed 1px  #ddd; */
+    display: inline-block;
+    text-align: right;
+    width: 30%;
+}

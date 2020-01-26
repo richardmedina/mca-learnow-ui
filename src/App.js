@@ -19,9 +19,9 @@ function App() {
     <Provider store={ store }>
       <BrowserRouter>
         <MainMenubar />
-        <div className="container">
+        {/* <div className="container"> */}
           <View />
-        </div>
+        {/* </div> */}
       </BrowserRouter>
     </Provider>
   );
