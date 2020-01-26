@@ -41,8 +41,7 @@ class MainMenubar extends React.Component {
     }
 }
 
-const mapStateToProps = state =>{
-    console.log ("Asigning state: ", state)
+const mapStateToProps = state => {
     return {
         isLogged: state.login.isLogged
     }

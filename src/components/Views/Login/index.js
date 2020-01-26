@@ -103,10 +103,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        doLogin: (username, password) => {
-            console.log(`Runningauthenticate ${username}:${password}`)
-            return dispatch(authenticate(username, password))
-        }
+        doLogin: (username, password) =>
+            dispatch(authenticate(username, password))
     }
 }
 

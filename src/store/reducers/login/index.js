@@ -7,9 +7,6 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    console.log("Runninng login reducer, state: ", state)
-    console.log("Action: ", action)
-
     switch(action.type)
     {
         case LOGIN_SUCCEED:
