@@ -14,8 +14,6 @@ class MainMenubar extends React.Component {
     {
         const { isLogged } = this.props
 
-        console.log ("PROPS: ", this.props)
-
         return isLogged ? (
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className={styles["main-menu-bar"]}>
                 <Navbar.Brand as={Link} to="/">React-Bootstrap</Navbar.Brand>
@@ -34,7 +32,7 @@ class MainMenubar extends React.Component {
                     </Nav>
                     <Nav>
                         <Nav.Link href="#deets">More deets</Nav.Link>
-                        <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                        <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

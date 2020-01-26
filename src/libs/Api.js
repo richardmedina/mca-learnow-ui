@@ -1,74 +1,44 @@
 import axios from 'axios'
 
-const API_URL = "https://localhost:5001/api";
+export default class {
+    apiUrl = ""
+    client = null
 
+    constructor(apiUrl)
+    {
+        this.initialize(apiUrl)
+    }
 
-class Api {
-    apiUrl = undefined
-    instance = null;
-    token = null
-    expiration = null
-    username = null
-    password = null
-    lastAuthSuccesful = false
-
-    constructor (apiUrl){
+    initialize = (apiUrl) => {
         this.apiUrl = apiUrl
-    }
-
-    isValidAxiosInstance = () => {
-        return this.token != null;
-    }
-
-    renewToken = () => {
-
-    }
-
-    handleApiErrors = error => {
-        if (error.response.status == 401)
-        {
-            // error.response.data
-            // error.response.headers
-        }
-        console.log ("Handling Error: ", error)
-        console.log ("Handling Response: ", error.response)
-    }
-
-    getBearerToken = (username, password) => {
-        this.username = username
-        this.password = password
-
-        axios.post (`${this.apiUrl}/auth/authenticate`, {
-            username,
-            password
-        })
-        .then (response => {
-            this.token = response.data.token
-            this.expiration = response.data.expires
-
-            this.createAxiosInstance()
-        })
-        .catch(this.handleApiErrors)
-    }
-
-    createAxiosInstance = () => {
-        this.instance = axios.create({
+        this.client = axios.create({
             baseURL: this.apiUrl,
-            headers: {
-                Authorization: `Bearer ${this.token}`
-            }
+            // headers: {
+            //     Authorization: `Bearer ${this.token}`
+            // }
         });
     }
 
-    getUsers = () => {
-        if (this.isValidAxiosInstance) { 
-            this.createAxiosInstance()
+    setHeaders = (headers) => {
+        console.log("HEADERS: ", this.client.defaults.headers)
+        
+        this.client.defaults.headers = {
+            ...this.client.defaults.headers,
+            headers
         }
 
-        this.instance.get("/users")
+        console.log("NEWHEADERS: ", this.client.defaults.headers)
     }
 
-    
-}
+    get = (url, config = null) =>
+        this.client.get(url, config);
 
-export default new Api (API_URL);
+    post = (url, data = null, config= null) =>
+        this.client.post(url, data, config)
+
+    put = (url, data, config = null) =>
+        this.client.put(url, data, config)
+
+    delete = (url, data, config) =>
+        this.client.delete(url, data, config)
+}

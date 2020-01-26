@@ -4,21 +4,19 @@ import Login from '../Views/Login'
 
 import { connect } from 'react-redux'
 
-const Content = ({ children, isLogged }) =>
-    !isLogged ?
-        <Login />
-    : 
-        <div>
-            <Route exact path="/" render={ () => <div>Main Page</div> } />
-            <Route exact path="/login" component={Login} />
-            <Route path="/about" render={ () => <div>About</div> } />
-        </div>
-
+const View = ({ children, isLogged, history }) =>
+        !isLogged
+            ? <Login></Login>
+            : <div>
+                <Route exact path="/" render={ () => <div>Main Page</div> } />
+                {/* <Route exact path="/login" component={Login} /> */}
+                <Route exact path="/about" render={ () => <div>About</div> } />
+            </div>
 
 const mapStateToProps = state => {
     return {
-        login: state.login.isLogged
+        isLogged: state.login.isLogged
     }
 }
 
-export default connect(mapStateToProps, null)(Content)
+export default connect(mapStateToProps, null)(View)

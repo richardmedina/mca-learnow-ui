@@ -5,7 +5,6 @@ import styles from './styles.module.css'
 export default class Logo extends React.Component {
     getCssClassBySize = size =>
     {
-        console.log("SIZE: ", size);
         if (!size) size = "small"
 
         switch (size.toUpperCase())

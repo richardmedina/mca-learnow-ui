@@ -1,11 +1,14 @@
 import React from 'react'
 import { Form, Button, ButtonToolbar } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { AppContext } from '../../../context/AppContext'
+
+import { connect } from 'react-redux'
 
 import Logo from '../../common/logo'
 
 import styles from './styles.module.css'
+import { authenticate } from '../../../store/actions/index'
 
 class Login extends React.Component {
 
@@ -17,6 +20,8 @@ class Login extends React.Component {
 
     onLoginButtonClicked = e => {
         const { username, password } = this.state
+        const { doLogin } = this.props
+        doLogin(username, password)
     }
 
     onCreateButtonClicked = e => {
@@ -34,8 +39,16 @@ class Login extends React.Component {
         });
     }
 
+    componentDidMount ()
+    {
+        const { isLogged, history } = this.props
+        console.log("Redirectiong to root")
+        //if (isLogged) history.push("/")
+    }
+
     render () {
         const { username, password } = this.state
+        const { isLogged, history } = this.props
 
         return (
             <div className={ styles.login }>
@@ -76,15 +89,25 @@ class Login extends React.Component {
                             You don't have an account yet?, <Link to="/register">create</Link> a new account
                         </small>
                     </div>
-                    <div>
-                        Prop1: { this.context.property1 }
-                        <br></br>
-                        Prop2: { this.context.property2 }
-                    </div>
                 </Form>
             </div>
         )
     }
 }
 
-export default Login
+const mapStateToProps = state => {
+    return {
+        isLogged: state.login.isLogged
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        doLogin: (username, password) => {
+            console.log(`Runningauthenticate ${username}:${password}`)
+            return dispatch(authenticate(username, password))
+        }
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
