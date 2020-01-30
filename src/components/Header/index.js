@@ -3,7 +3,9 @@ import styles from './styles.css'
 
 const Header = ({ children }) =>
     <div style={ styles.header }>
-        { children }
+        <div className={ "hello world"}>
+            { children }
+        </div>
     </div>
 
 
