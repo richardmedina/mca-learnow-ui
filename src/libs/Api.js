@@ -1,4 +1,6 @@
 import axios from 'axios'
+import https from 'https'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 export default class {
     apiUrl = ""
@@ -13,6 +15,9 @@ export default class {
         this.apiUrl = apiUrl
         this.client = axios.create({
             baseURL: this.apiUrl,
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false
+              })
             // headers: {
             //     Authorization: `Bearer ${this.token}`
             // }
@@ -21,7 +26,7 @@ export default class {
 
     setHeaders = (headers) => {
         console.log("HEADERS: ", this.client.defaults.headers)
-        
+
         this.client.defaults.headers = {
             ...this.client.defaults.headers,
             headers

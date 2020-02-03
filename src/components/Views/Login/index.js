@@ -1,7 +1,6 @@
 import React from 'react'
 import { Form, Button, ButtonToolbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { AppContext } from '../../../context/AppContext'
 
 import { connect } from 'react-redux'
 
@@ -9,10 +8,11 @@ import Logo from '../../common/logo'
 
 import styles from './styles.module.css'
 import { authenticate } from '../../../store/actions/index'
+import { PropTypes } from 'prop-types'
 
-class Login extends React.Component {
+export class Login extends React.Component {
 
-    static contextType = AppContext
+    //static contextType = AppContext
     state = {
         username: "",
         password: ""
@@ -25,11 +25,11 @@ class Login extends React.Component {
     }
 
     onCreateButtonClicked = e => {
-        const { 
-            getUsers
-        } = this.context.Api
+        // const { 
+        //     getUsers
+        // } = this.context.Api
 
-        getUsers ();
+        // getUsers ();
     }
 
     handleChange = event => {
@@ -48,7 +48,7 @@ class Login extends React.Component {
 
     render () {
         const { username, password } = this.state
-        const { isLogged, history } = this.props
+        const { isLogged } = this.props
 
         return (
             <div className={ styles.login }>
@@ -84,15 +84,20 @@ class Login extends React.Component {
                         </Button>    
                     </ButtonToolbar>
                     
-                    <div>
+                    {/* <div>
                         <small>
                             You don't have an account yet?, <Link to="/register">create</Link> a new account
                         </small>
-                    </div>
+                    </div> */}
                 </Form>
             </div>
         )
     }
+}
+
+Login.propTypes = {
+    name: PropTypes.string,
+    contextTypes: PropTypes.object
 }
 
 const mapStateToProps = state => {

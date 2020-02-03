@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 const View = ({ children, isLogged, history }) =>
         !isLogged
-            ? <FreeSite></FreeSite>
+            ? <Login></Login>
             : <div>
                 <Route exact path="/" render={ () => <div>Main Page</div> } />
                 {/* <Route exact path="/login" component={Login} /> */}
