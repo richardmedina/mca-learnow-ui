@@ -1,13 +1,12 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import Login from '../views/login'
-import FreeSite from '../views/freeSite'
+import FreeSite from '../views/free-site'
 
 import { connect } from 'react-redux'
 
 const View = ({ children, isLogged, history }) =>
         !isLogged
-            ? <Login></Login>
+            ? <FreeSite />
             : <div>
                 <Route exact path="/" render={ () => <div>Main Page</div> } />
                 {/* <Route exact path="/login" component={Login} /> */}

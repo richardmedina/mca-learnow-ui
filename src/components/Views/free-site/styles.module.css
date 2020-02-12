@@ -1,6 +1,6 @@
 
 .main {
-    background: #E5FFCC;
+    /* background: #F49F05; */
     height: 100vh;
 }
 
@@ -20,4 +20,6 @@
     display: inline-block;
     text-align: right;
     width: 30%;
+    padding-right: 10px;
+    border: dashed 1px #ddd;
 }

@@ -10,9 +10,7 @@ import styles from './styles.module.css'
 import { authenticate } from '../../../store/actions/index'
 import { PropTypes } from 'prop-types'
 
-export class Login extends React.Component {
-
-    //static contextType = AppContext
+class Login extends React.Component {
     state = {
         username: "",
         password: ""
@@ -20,44 +18,49 @@ export class Login extends React.Component {
 
     onLoginButtonClicked = e => {
         const { username, password } = this.state
-        const { authenticate } = this.props
-        authenticate(username, password)
+        const { onOkClicked } = this.props
+
+        onOkClicked(username, password)
     }
 
-    onCreateButtonClicked = e => {
-        // const { 
-        //     getUsers
-        // } = this.context.Api
-
-        // getUsers ();
-    }
+    onCreateButtonClicked = e => {}
 
     handleChange = event => {
+        const { onStateChanged } = this.props
         const { name, value } = event.target
         this.setState({
             [name]: value
+        }, () => {
+            onStateChanged(
+                this.state.username,
+                this.state.password
+            )
         });
+
+        
+
     }
 
-    // componentDidMount ()
-    // {
-    //     const { isLogged, history } = this.props
-    //     console.log("Redirectiong to root")
-    //     //if (isLogged) history.push("/")
-    // }
+    handlePasswordKeyDown = e => {
+        if (e.key === 'Enter') {
+            const { username, password } = this.state
+            const { onOkClicked } = this.props
+            onOkClicked(username, password)
+          }
+    }
 
     render () {
         const { username, password } = this.state
-        const { isLogged } = this.props
 
         return (
             <div className={ styles.login }>
-                <h1>Login to our site</h1>
+                {/* <h1>Login to our site</h1> */}
                 <Logo size="small" />
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
+                            autoFocus
                             type="email"
                             placeholder="Enter email"
                             name="username"
@@ -70,25 +73,26 @@ export class Login extends React.Component {
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" name="password" value={password} onChange={ this.handleChange } />
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            value={password}
+                            onChange={ this.handleChange } 
+                            onKeyUp={this.handlePasswordKeyDown}
+                            />
                     </Form.Group>
                     {/* <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Check me out" />
                     </Form.Group> */}
-                    <ButtonToolbar>
+                    {/* <ButtonToolbar>
                         <Button variant="primary" type="button" onClick={ this.onLoginButtonClicked }>
                             Login
                         </Button>
                         <Button variant="success" type="button" onClick={ this.onCreateButtonClicked }>
                             Create
                         </Button>    
-                    </ButtonToolbar>
-                    
-                    {/* <div>
-                        <small>
-                            You don't have an account yet?, <Link to="/register">create</Link> a new account
-                        </small>
-                    </div> */}
+                    </ButtonToolbar> */}
                 </Form>
             </div>
         )
@@ -96,21 +100,14 @@ export class Login extends React.Component {
 }
 
 Login.propTypes = {
-    name: PropTypes.string,
-    contextTypes: PropTypes.object
+    onOkClicked: PropTypes.func,
+    onStateChanged: PropTypes.func
 }
 
-const mapStateToProps = state => {
-    return {
-        isLogged: state.login.isLogged
-    }
+Login.defaultProps = {
+    onOkClicked: (username, password) => {},
+    onStateChanged: (username, password) => {}
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        authenticate: (username, password) =>
-            dispatch(authenticate(username, password))
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default Login
